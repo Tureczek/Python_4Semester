@@ -1,0 +1,4 @@
+a = ['Nicholas', 'Martin', 'Patrick', 'Virgin-Victor']
+
+sorted(a)
+
