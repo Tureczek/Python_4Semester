@@ -12,11 +12,10 @@
 
 def remove_adjacent(nums):
     # +++your code here+++
-    l1 = []
-    for i in range(len(nums)):
-        if nums[i] not in l1:
-            l1.append(nums[i])
-    return tuple(l1)
+    return tuple([i for i in set(nums)])
+# tuple(set(nums))
+
+
 
 
 # E. Given two lists sorted in increasing order, create and return a merged
@@ -25,8 +24,8 @@ def remove_adjacent(nums):
 # pass of both lists.
 def linear_merge(list1, list2):
     # +++your code here+++
-    list3 = list1 + list2
-    return sorted(list3)
+    return sorted([i for i in list1] + [i for i in list2])
+    #return  sorted((i+j) for (i,j) in (list1*list2))
 
 
 # Note: the solution above is kind of cute, but unforunately list.pop(0)
