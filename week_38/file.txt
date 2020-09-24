@@ -2,3 +2,17 @@ import requests
 
 URL = 'https://www.monster.com/jobs/search/?q=Software-Developer&where=Australia'
 page = request.get(URL)
+
+    if title_elem is not None:
+        print("Title : ", title_elem.text.strip())
+    else:
+        print("Title not available")
+    if company_elem is not None:
+        print("Company : ", company_elem.text.strip())
+    else:
+        print("Company name not available")
+    if location_elem is not None:
+        print("Location : ", location_elem.text.strip())
+    else:
+        print("Location not available")
+    print('\n')
