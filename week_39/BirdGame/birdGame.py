@@ -7,9 +7,7 @@ class Pig:
     pass
 
 class Board:
-    board = [['*' for i in range(5)] for j in range(5)]
-
-
+    pass
     
 
 class Workspace:
@@ -18,4 +16,3 @@ class Workspace:
 class Game:
     pass
 
-print()
