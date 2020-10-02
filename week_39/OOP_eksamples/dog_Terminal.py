@@ -4,6 +4,8 @@ class Dog:
     def __init__(self, name, age):
         self.name = name
         self.age = age
+    
+        
 
     # Instance method
     #def description(self):
@@ -17,9 +19,23 @@ class Dog:
         return f"{self.name} is {self.age} years"
 
 
-
     # Another instance method
     def speak(self, sound):
-        return f"{self.name} says {sound}"
+        return f"{self.name} barks : {sound}"
+
+class JackRussellTerrier(Dog):
+    def speak(self, sound="arf"):
+        #return f"{self.name} says {sound}"
+        #calling parant classe instead
+        return super().speak(sound)
+
+class GoldenRetriver(Dog):
+    def speak(self, sound="Bark"):
+        return super().speak(sound)
 
 
+class Dachshund(Dog):
+    pass
+
+class Bulldog(Dog):
+    pass
