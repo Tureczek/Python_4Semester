@@ -33,6 +33,8 @@ class P:
 
     def set_alias(self, x):
         self.__alias = x
+        
+        
 
     def get_name(self, name):
         return self.name
