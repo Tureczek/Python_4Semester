@@ -15,3 +15,9 @@ class Dog:
     - Attributes created in .__init__() are called instance attributes
     """
 
+    """
+    The Dog class’s .__init__() method has three parameters, so why are only two arguments passed to it in the example?
+    When you instantiate a Dog object, Python creates a new instance and passes it to the first parameter of .__init__(). 
+    This essentially removes the self parameter, so you only need to worry about the name and age parameters.
+    """
+
