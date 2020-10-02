@@ -17,6 +17,7 @@ class Dog:
         return f"{self.name} is {self.age} years"
 
 
+
     # Another instance method
     def speak(self, sound):
         return f"{self.name} says {sound}"
