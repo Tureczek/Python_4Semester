@@ -13,7 +13,7 @@ job_elems = results.find_all('section', class_='card-content')
 for job_elem in job_elems:
     # Each job_elem is a new BeautifulSoup object.
     # You can use the same methods on it as you did before
-    python_jobs = results.find_all('h2', string=lambda text: 'lead' in text.lower())
+    python_jobs = results.find_all('h2', string=lambda text: 'develop' in text.lower())
     for p_job in python_jobs:
         link = p_job.find('a')['href']
         print(p_job.text.strip())
