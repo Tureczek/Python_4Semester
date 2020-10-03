@@ -13,3 +13,5 @@ class P:
             self.__x = 1000
         else:
             self.__x = x
+
+
