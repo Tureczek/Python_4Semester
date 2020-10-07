@@ -1,63 +1,80 @@
 import os
 """
-3. Machine -> printer
+Machine -> printer
 Create a Machine class that takes care of powering on and off a the machine.
 Create a printer class that is a subclass of the Machine super class.
 The printer should be able to print to console.
 The printer should have a papertray, which should be in its own class. The papertray class should keep track of the paper, it should have the abillity to use paper and and load new paper in the tray if empty.
 
 """
-print("Turn machine on? Y/N")
 
 class Machine:
-    def __init__(self, onOff):
-        self.onOff = onOff
+    """ takes care of turning on and off  """
 
-    def __str__(self):
-        return f"The printer i {self.onOff}!"
+    def __init__(self):
+        self.__is_on = False
 
     @property
-    def onOff(self):
-        return self.__onOff
+    def is_on(self):
+        return self.__is_on
 
-    @onOff.setter
-    def onOff(self, x):
-        if x == 'on':
-            self.__onOff = 'ON'
-        else:
-            self.__onOff = 'OFF'
+    def power(self):
+        self.__is_on = not self.__is_on
+
 
 class Printer(Machine):
-    def printOut(self, i, u):
-        self.u = u
+    def __init__(self):
+        # 1.
+        super().__init__()
 
-        if 'QUIT' not in i:
-            return f"Printing out {i} on paper." + '\n' + f"Number of papers back in tray is {print(u)}"
+        # 2.
+        # Machine.__init__(self)
+
+        self.__pt = Papertray()
+
+    def print(self, text):
+        if self.__pt.paper == 0:
+            print('Papertray is empty')
         else:
-            print('shutting down')
-            os.exit()
-        self.u += 1
-
+            if self.is_on:
+                print(f"printing {text} on paper")
+                self.__pt.paper = self.__pt.paper - 1
+            else:
+                print('Printer is off')
 
     @property
-    def u(self):
-        self.u = 10
-        return self.__u
+    def load(self):
+        return self.__pt.paper
 
-    @u.setter
-    def u(self):
-        pass
+    @load.setter
+    def load(self, no):
+        self.__pt.paper =  no
+
+
 class Papertray:
-    def papers(self, paper):
-        self.paper = paper
-        return f"Numbers of papers left is {paper}"
+    def __init__(self):
+        self.paper = 2
 
     @property
     def paper(self):
         return self.__paper
 
     @paper.setter
-    def paper(self, x):
-        pass
+    def paper(self, paper):
+        self.__paper = paper
 
 
+p = Printer()
+print("Printer is on: " + str(p.is_on))
+print("Printer is loaded: " + str(p.load))
+p.print("Hello")
+p.power()
+p.print("Hello 2")
+p.print("Hello 3")
+p.print("Hello 4")
+p.load = 5
+print("Printer is loaded: " + str(p.load))
+p.print("Hello 4")
+p.print("Hello 5")
+p.print("Hello 6")
+print("Printer is loaded: " + str(p.load))
