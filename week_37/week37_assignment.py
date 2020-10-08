@@ -24,6 +24,6 @@ def message(x):
         print(x[1])
     
     if len(x) > 1:
+        print(x[1])
         print(x[2])
-        print(x[3])
 message(sys.argv)
