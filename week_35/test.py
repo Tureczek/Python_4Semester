@@ -14,7 +14,18 @@ spam = 10
 
 def test():
     spam = 20
+test()
 
-
-test(print(spam))
+print(spam)
 print("15" * 10)
+
+def first(n):
+    num = 1
+    sum = 0
+    
+    while num < n + 1:
+        sum = sum + num
+        num = num + 1
+        print(sum)
+    return sum
+
