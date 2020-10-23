@@ -1,4 +1,7 @@
 from decorators import do_twice
+from decorators import timer
+from decorators import debug
+import math
 
 #Simple function, returning value based on given argument
 def add_one(number):
@@ -113,7 +116,7 @@ def say_whee():
 def greet(name):
     print(f"Hello {name}")
 
-#After changing decorators code ant adding *args, **kwarks it works with both
+#After changing decorators code and adding *args, **kwarks it works with both
 #say_whee()
 #greet("World")
 
@@ -131,3 +134,40 @@ def return_greeting(name):
 #print(hi_adam)
 
 #return_greeting("Adam")
+
+
+
+""" Introspection is the ability of an object to know about its own attributes at runtime """
+#print(say_whee)
+#print(say_whee.__name__) # -> normally confused on being wrapped prints -> wrapper_do_twice. This is fixed in decorator
+#print(help(say_whee))
+
+
+@timer
+def waste_some_time(num_times):
+    for _ in range(num_times):
+        sum([i**2 for i in range(10000)])
+
+#print(waste_some_time(1))
+#print(waste_some_time(999))
+
+
+@debug
+def make_greeting(name, age=None):
+    if age is None:
+        return f"Howdy {name}!"
+    else:
+        return f"Whoa {name}! {age} already, you are growing up!"
+
+#make_greeting("Benjamin")
+#make_greeting("Richard", age=112)
+#make_greeting(name="Dorrisile", age=116)
+
+
+# Apply a decorator to a standard library function
+math.factorial = debug(math.factorial)
+
+def approximate_e(terms=18):
+    return sum(1 / math.factorial(n) for n in range(terms))
+
+approximate_e(5)
