@@ -130,7 +130,7 @@ def stringSplitter(testDate):
         substring[2] = "19" + substring[2]
     else:
         substring[2] = "20" + substring[2]
-    print(substring[::-1])
+    print(tuple(substring[::-1]))
     return substring[::-1]
 
 
