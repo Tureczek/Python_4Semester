@@ -1,7 +1,9 @@
 from decorators import do_twice
 from decorators import timer
 from decorators import debug
+from decorators import slow_down
 import math
+
 
 #Simple function, returning value based on given argument
 def add_one(number):
@@ -170,4 +172,48 @@ math.factorial = debug(math.factorial)
 def approximate_e(terms=18):
     return sum(1 / math.factorial(n) for n in range(terms))
 
-approximate_e(5)
+#approximate_e(5)
+
+@slow_down
+def countdown(from_number):
+    if from_number < 1:
+        print("Liftoff!")
+    else:
+        print(from_number)
+        countdown(from_number - 1)
+
+#countdown(3)
+
+"""
+Note: The countdown() function is a recursive function. 
+In other words, it’s a function calling itself.
+"""
+
+
+# Registering plugins
+"""Choosing random function to use"""
+import random # for Plugin examples
+
+PLUGINS = dict()
+
+def register(func):
+    """Register a function as a plug-in"""
+    PLUGINS[func.__name__] = func
+    return func
+
+@register
+def say_hello(name):
+    return f"Hello {name}"
+
+@register
+def be_awesome(name):
+    return f"Yo {name}, together we are the awesomest!"
+
+def randomly_greet(name):
+    greeter, greeter_func = random.choice(list(PLUGINS.items()))
+    print(f"Using {greeter!r}")
+    return greeter_func(name)
+
+#print(PLUGINS)
+#print(randomly_greet("Alice"))
+
