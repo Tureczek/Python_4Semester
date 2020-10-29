@@ -1,7 +1,7 @@
-from decorators import debug, timer, do_twice, repeat, count_calls, CountCalls
+from decorators import debug, timer, do_twice, repeat, count_calls, CountCalls, slow_down_revisited, singleton, cache, set_unit
+import math
 
 #Define class and decorating methods
-
 class TimeWaster:
     @debug
     def __init__(self, max_num):
@@ -99,6 +99,7 @@ def say_whee():
 
 
 # Classes as Decorators
+"""Counting times that a method is called"""
 class Counter:
     def __init__(self, start=0):
         self.count = start
@@ -127,3 +128,67 @@ def say_whee():
 #print(say_whee())
 #print(say_whee())
 #print(say_whee())
+
+
+@slow_down_revisited(rate=2)
+def countdown(from_number):
+    if from_number < 1:
+        print("Liftoff!")
+    else:
+        print(from_number)
+        countdown(from_number - 1)
+
+#print(countdown(5))
+
+@singleton
+class TheOne:
+    pass
+
+first_one = TheOne()
+another_one = TheOne()
+
+#print(id(first_one))
+#print(id(another_one))
+#print(first_one is another_one)
+
+
+# Cashing Return Values
+
+""" Not an ideel way to do fibonacci, usual solution is to do it in a for loop and lookup table
+    we could also build a cache
+"""
+@count_calls
+def fibonacci(num):
+    if num < 2:
+        return num
+    return fibonacci(num - 1) + fibonacci(num - 2)
+
+#print(fibonacci(10))
+#print(fibonacci.num_calls)
+
+@cache
+@count_calls
+def fibonacci(num):
+    if num < 2:
+        return num
+    return fibonacci(num - 1) + fibonacci(num - 2)
+
+#print(fibonacci(10))
+#print(fibonacci(8))
+"""
+Note that in the final call to fibonacci(8), no new calculations were needed, 
+since the eighth Fibonacci number had already been calculated for fibonacci(10).
+"""
+
+@set_unit("cm^3")
+def volume(radius, height):
+    return math.pi * radius**2 * height
+
+print(volume(3, 5))
+print(volume.unit)
+
+# Note that you could have achieved something similar using function annotations:
+"""
+def volume(radius, height) -> "cm^3":
+    return math.pi * radius**2 * height
+"""

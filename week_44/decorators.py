@@ -31,7 +31,7 @@ def decorator(func):
     @functools.wraps(func)
     def wrapper_decorator(*args, **kwargs):
         # Do something before
-        value = finc(*args, **kwargs)
+        value = func(*args, **kwargs)
         # Do something after
         return value
     return wrapper_decorator
@@ -149,7 +149,7 @@ def repeat(_func=None, *, num_times=2):
 def count_calls(func):
     @functools.wraps(func)
     def wrapper_count_calls(*args, **kwargs):
-        wrapper_count_calls.num_calls += 1 #
+        wrapper_count_calls.num_calls += 1
         print(f"Call {wrapper_count_calls.num_calls} of {func.__name__!r}")
         return func(*args, **kwargs)
     wrapper_count_calls.num_calls = 0
@@ -170,3 +170,56 @@ class CountCalls:
         self.num_calls += 1
         print(f"Call {self.num_calls} of {self.func.__name__!r}")
         return self.func(*args, **kwargs)
+
+
+
+def slow_down_revisited(_func=None, *, rate=1):
+    """Sleep given amount of seconds before calling the function"""
+    def decorator_slow_down(func):
+        @functools.wraps(func)
+        def wrapper_slow_down(*args, **kwargs):
+            time.sleep(rate)
+            return func(*args, **kwargs)
+        return wrapper_slow_down
+
+    if _func is None:
+        return decorator_slow_down
+    else:
+        return decorator_slow_down(_func)
+
+
+# SINGLETONS
+
+def singleton(cls):
+    """Make a class a Singleton class (Only one instance)"""
+    @functools.wraps(cls)
+    def wrapper_singleton(*args, **kwargs):
+        if not wrapper_singleton.instance:
+            wrapper_singleton.instance = cls(*args, **kwargs)
+        return wrapper_singleton.instance
+    wrapper_singleton.instance = None
+    return wrapper_singleton
+
+
+# Caching Return Values
+
+def cache(func):
+    """Keep a cache of previous function calls"""
+    @functools.wraps(func)
+    def wrapper_cache(*args, **kwargs):
+        cache_key = args + tuple(kwargs.items())
+        if cache_key not in wrapper_cache.cache:
+            wrapper_cache.cache[cache_key] = func(*args, **kwargs)
+        return wrapper_cache.cache[cache_key]
+    wrapper_cache.cache = dict()
+    return wrapper_cache
+
+
+
+# Adding Information About Units
+def set_unit(unit):
+    """Register a unit on a function"""
+    def decorator_set_unit(func):
+        func.unit = unit
+        return func
+    return decorator_set_unit
