@@ -6,9 +6,21 @@ The class should implement the iterations functionality (iter() and next()) and 
 an iter object. When iterated the Pythod_students object should return the name of each student in the list.
 """
 
+
 class pythonStudents:
-    ()
-    pass
+    list_of_students = []
+
+    def __iter__(self):
+        self.last = 0
+        return self
+
+    def __next__(self):
+        self.last += 1
+        if self.last > len(list_of_students):
+            raise StopIteration()
+        return self.last
+
+
 
 class Student:
 
@@ -32,5 +44,4 @@ class Student:
 
     def __repr__(self):
         return f'self.__dict__'
-
 

@@ -1,4 +1,5 @@
-import datetime
+# Author Nicholas Tureczek
+
 # Model an organisation of employees, management and board of directors in 3 sets.
 
 directors = {"Benny", "Hans", "Tine", "Mille", "Torben", "Troels", "Søren"}
