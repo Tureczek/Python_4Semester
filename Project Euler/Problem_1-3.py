@@ -1,3 +1,5 @@
+from decorators import timer
+
 '''
 Euler problem 1:
 
@@ -24,6 +26,7 @@ def multiple(x, y, max):
 
 
 # multiple(3, 5, 1000)
+print("\n#################################################################################################################\n")
 
 '''
 Euler Problem 2:
@@ -50,9 +53,24 @@ def even_fibonacci_numbers():
 
 even_fibonacci_numbers()
 
+print("\n#################################################################################################################\n")
+
 '''
 Euler Problem 3:
 
 The prime factors of 13195 are 5, 7, 13 and 29.
 What is the largest prime factor of the number 600851475143 ?
 '''
+
+def prime_factors(n):
+    i = 2
+    original_n = n
+    while i * i <= n:
+        if n % i:
+            i += 1
+        else:
+            n //= i
+        print(f'Largest primefactor of the number {original_n} is: {n}')
+        return n
+
+prime_factors(1000)
